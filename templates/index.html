@@ -10,6 +10,7 @@
   <!-- Bootstrap -->
   <link href="/static/vendor/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/css/main.css" rel="stylesheet">
+  <link href="/static/vendor/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,11 +21,58 @@
 </head>
 <body>
 <div class="container">
-  <div class="title-bar">
-    <img src="/static/img/logo_no_text.png">
-    <div class="title">
-      <div class="title-text">[seb]</div>
-      <div class="caption">"I want to be a tree"</div>
+  <div class="title-bar clearfix">
+    <div class="col-sm-8 clearfix logo">
+      <img src="/static/img/logo_no_text.png">
+      <div class="title">
+        <div class="title-text">[seb]</div>
+        <div class="caption">"I want to be a tree."</div>
+      </div>
+    </div>
+    <div class="col-sm-4 search-bar clearfix">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control search-input" id="search" placeholder="Search">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="media-choice text-center clearfix">
+    <button class="btn btn-default active">All</button>
+    <button class="btn btn-default">Comics</button>
+    <button class="btn btn-default">Thoughts</button>
+  </div>
+  <div class="content">
+    <div class="col-sm-4">
+      <div class="post">
+        <div class="post-date">17 sep 2015</div>
+        <img src="/static/img/mummy_says.png" width="100%">
+      </div>
+      <div class="post">
+        <div class="post-date">17 sep 2015</div>
+        <img src="/static/img/logo.png" width="100%">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="post">
+        <div class="post-date">17 sep 2015</div>
+        <img src="/static/img/logo.png" width="100%">
+      </div>
+      <div class="post">
+        <div class="post-date">17 sep 2015</div>
+        <img src="/static/img/mummy_says.png" width="100%">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="post">
+        <div class="post-date">17 sep 2015</div>
+        <img src="/static/img/mummy_says.png" width="100%">
+      </div>
+      <div class="post">
+        <div class="post-date">17 sep 2015</div>
+        <img src="/static/img/mummy_says.png" width="100%">
+      </div>
     </div>
   </div>
 </div>

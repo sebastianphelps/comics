@@ -1,11 +1,19 @@
 .title-bar {
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
+
+}
+
+.logo {
+    height: 180px;
 }
 
 .title-bar img {
     float: left;
 }
 
+.content {
+    margin-top: 20px;
+}
 .title-bar .title {
     padding: 55px 0 0 150px;
     font-size: 40px;
@@ -14,6 +22,59 @@
 
 .title-bar .caption {
     padding: 10px 0 0 15px;
-    font-size: 13px;
-    color: #9c9c9c;
+    font-size: 14px;
+    color: #8c8c8c;
+    font-weight: normal;
+}
+
+.btn.active {
+    border-color: #4C9141;
+    color: #4C9141;
+    background-color: #ffffff;
+}
+.btn.active:hover {
+    border-color: #4C9141;
+    color: #4C9141;
+    background-color: #ffffff;
+}
+
+.btn:hover {
+    border-color: #4C9141;
+    color: #4C9141;
+    background-color: #ffffff;
+}
+
+.input-group-addon {
+    /*border-color: #4C9141;*/
+    background-color: #ffffff;
+}
+.search-bar {
+    margin-top: 20px;
+}
+.search-input {
+    border-left: 0;
+}
+
+.form-control {
+    /*border-color: #4C9141;*/
+}
+
+.post {
+    border: 2px solid #6c6c6c;
+    margin: 10px 5px;
+}
+
+.post-date {
+    position: absolute;
+    right: 7px;
+    border: 1px solid #4C9141;
+    padding: 8px;
+    border-top: 0;
+    border-right: 0;
+    color: #4C9141;
+    background-color: #ecfcec;
+
+}
+.col-sm-4 {
+    padding: 0;
 }
