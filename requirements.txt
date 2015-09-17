@@ -1,0 +1,5 @@
+Django==1.8.3
+psycopg2==2.6.1
+django-countries==3.3
+Pillow==2.9.0
+django-cleanup==0.3.1

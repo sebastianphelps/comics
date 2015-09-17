@@ -1,0 +1,19 @@
+.title-bar {
+    margin-top: 20px;
+}
+
+.title-bar img {
+    float: left;
+}
+
+.title-bar .title {
+    padding: 55px 0 0 150px;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+.title-bar .caption {
+    padding: 10px 0 0 15px;
+    font-size: 13px;
+    color: #9c9c9c;
+}
