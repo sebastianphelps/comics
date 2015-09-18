@@ -1,0 +1,38 @@
+[
+{
+    "fields": {
+        "background_colour": "#ECECEC",
+        "border_colour": "#7C7C7C",
+        "text_colour": "#7C7C7C"
+    },
+    "model": "comics.poststyle",
+    "pk": "black-post"
+},
+{
+    "fields": {
+        "background_colour": "#E8F3F8",
+        "border_colour": "#81A8B8",
+        "text_colour": "#81A8B8"
+    },
+    "model": "comics.poststyle",
+    "pk": "blue-post"
+},
+{
+    "fields": {
+        "background_colour": "#ECFCEC",
+        "border_colour": "#4C9141",
+        "text_colour": "#4C9141"
+    },
+    "model": "comics.poststyle",
+    "pk": "green-post"
+},
+{
+    "fields": {
+        "background_colour": "#FDE7E2",
+        "border_colour": "#FA2A00",
+        "text_colour": "#FA2A00"
+    },
+    "model": "comics.poststyle",
+    "pk": "red-post"
+}
+]
