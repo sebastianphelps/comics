@@ -19,21 +19,11 @@
 
     <div class="footer">
       <span class="pull-right">
-        <span class="icon-button fa fa-heart-o"> {{post.num_likes}}</span>
+        <span class="icon-button fa fa-heart-o like-button" data-post-id="{{post.id}}"> {{post.num_likes}}</span>
       </span>
       <span>{{post.title}}</span>
       <br/><span class="caption">{{post.creation_date|date:"d b Y"}}</span>
     </div>
     <p>{{post.blurb}}</p>
   </div>
-{% endblock %}
-
-{% block jquery %}
-  <script>
-    $(function() {
-      $(".logo").click(function() {
-        window.location = "/"
-      });
-    });
-  </script>
 {% endblock %}

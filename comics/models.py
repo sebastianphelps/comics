@@ -58,3 +58,9 @@ class Post(models.Model):
 
     def __unicode__(self):
         return unicode(self.title)
+
+
+class PostLikes(models.Model):
+
+    post = models.ForeignKey(Post)
+    ip_address = models.IPAddressField()

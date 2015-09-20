@@ -27,11 +27,11 @@
   <script id="post-template" type="text/x-handlebars-template">
     <div class="{{style}} post">
       <div class="post-date">{{creation_date}}</div>
-      <img src="{{image}}" width="100%">
+      <img class="post-img" data-post-id="{{id}}" src="{{image}}" width="100%">
       <div class="post-footer">
         <span class="post-title">{{title}}</span>
           <span class="pull-right">
-            <span class="icon-button fa fa-heart-o"> {{num_likes}}</span>
+            <span class="icon-button fa fa-heart-o like-button" data-post-id="{{id}}"> {{num_likes}}</span>
           </span>
       </div>
     </div>
@@ -70,5 +70,24 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/static/vendor/js/bootstrap.min.js"></script>
 {% block jquery %}{% endblock %}
+<script>
+  $(function() {
+    $(".logo").click(function() {
+      window.location = "/"
+    });
+    $(".like-button").click(function() {
+      var button = $(this);
+      var post_id = button.data("post-id");
+      console.log(post_id);
+      $.ajax({
+        url: "/api/post/"+post_id+"/like/",
+        type: "get",
+        "success": function( data) {
+          console.log(data);
+          if (data.num_likes) button.text(" "+data.num_likes);
+        }});
+    });
+  });
+</script>
 </body>
 </html>

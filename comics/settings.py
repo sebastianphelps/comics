@@ -113,6 +113,46 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+LOGGING_FORMAT = "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s"
+LOGGING_DATE_FORMAT = "%d/%b/%Y %H:%M:%S"
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': LOGGING_FORMAT,
+            'datefmt': LOGGING_DATE_FORMAT
+        }
+    },
+    'handlers': {
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': "/opt/var/log/comics/django.log",
+            'maxBytes': 5000000,
+            'backupCount': 4,
+            'formatter': 'standard',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'logfile'],
+            'propagate': True,
+            'level': 'WARN',
+        },
+        'comics': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+        }
+    }
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

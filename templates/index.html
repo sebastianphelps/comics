@@ -40,27 +40,42 @@
             item.creation_date = Date.parse(item.creation_date.split("T")[0]).toString('d MMM yyyy');
             console.log(item.creation_date);
             var post = $(template(item));
-            post.click(function() {
-              window.location = "/post/" + item.id;
+            post.find(".post-img").click(function() {
+              window.location = "/post/" + $(this).data("post-id");
+            });
+            post.find(".like-button").click(function() {
+              var button = $(this);
+              var post_id = button.data("post-id");
+              console.log(post_id);
+              $.ajax({
+                url: "/api/post/"+post_id+"/like/",
+                type: "get",
+                "success": function( data) {
+                  console.log(data);
+                  if (data.num_likes) button.text(" "+data.num_likes);
+                }});
             });
             cols[c].append(post);
+
           });
           loading = false;
           last_page += 1;
+          $(".post-img").click(function() {
+            window.location = "/post/" + $(this).data("post-id");
+          });
+
+
         });
       }
       loadResults();
+
+
 
       $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
           loadResults();
         }
       });
-
-      $(".logo").click(function() {
-        window.location = "/"
-      })
-
     });
   </script>
 {% endblock %}
