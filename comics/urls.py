@@ -19,7 +19,7 @@ from django.conf import settings
 
 from rest_framework import routers
 
-from .views import IndexView, PostView
+from .views import IndexView, PostView, LicenseView
 from .api import register
 
 
@@ -30,6 +30,7 @@ register(router)
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', IndexView.as_view()),
+    url(r'^license', LicenseView.as_view()),
     url(r'^post/(?P<post_id>[0-9]+)/$', PostView.as_view()),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))

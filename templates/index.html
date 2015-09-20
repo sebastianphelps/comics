@@ -1,63 +1,5 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>[seb]</title>
-
-  <!-- Bootstrap -->
-  <link href="/static/vendor/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/static/css/main.css" rel="stylesheet">
-  <link href="/static/vendor/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.2/handlebars.min.js"></script>
-  <script type="text/javascript" src="/static/vendor/js/date.js"></script>
-
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  {% verbatim %}
-  <script id="post-template" type="text/x-handlebars-template">
-    <div class="{{style}} post">
-      <div class="post-date">{{creation_date}}</div>
-      <img src="{{image}}" width="100%">
-      <div class="post-footer">
-        <span class="post-title">{{title}}</span>
-          <span class="pull-right">
-            <span class="icon-button fa fa-heart-o"> {{num_likes}}</span>
-          </span>
-      </div>
-    </div>
-  </script>
-  {% endverbatim %}
-</head>
-<body>
-<div class="container">
-  <div class="title-bar clearfix">
-    <div class="col-sm-8 clearfix logo">
-      <img src="/static/img/logo_no_text.png">
-      <div class="title">
-        <div class="title-text">[seb]</div>
-        <div class="caption">"I want to be a tree."</div>
-      </div>
-    </div>
-    <div class="col-sm-4 search-bar clearfix">
-      <div class="form-group">
-        <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-search"></i></span>
-          <input type="text" class="form-control search-input" id="search" placeholder="Search">
-        </div>
-      </div>
-    </div>
-  </div>
+{% extends "base.html" %}
+{% block content %}
   <div class="media-choice text-center clearfix">
     <button class="btn btn-default active">All</button>
     <button class="btn btn-default">Comics</button>
@@ -68,61 +10,57 @@
     <div class="col-sm-4" id="content-col-2"></div>
     <div class="col-sm-4" id="content-col-3"></div>
   </div>
-</div>
+{% endblock %}
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/static/vendor/js/jquery-2.1.4.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/static/vendor/js/bootstrap.min.js"></script>
-<script>
-  $(function() {
-    var source   = $("#post-template").html();
-    var template = Handlebars.compile(source);
-    var loading = false;
-    var last_page = 0;
-    var end = false;
+{% block jquery %}
+  <script>
+    $(function() {
+      var source   = $("#post-template").html();
+      var template = Handlebars.compile(source);
+      var loading = false;
+      var last_page = 0;
+      var end = false;
 
-    function loadResults() {
-      if (loading || end) return;
-      loading = true;
-      $.getJSON( "/api/post?page=" + (last_page + 1), function( data ) {
-        var cols = [$('#content-col-1'), $('#content-col-2'), $('#content-col-3')];
-        end = data.next === null;
-        data.results.map(function( item ) {
-          var c = 0;
-          var ch = null;
-          for (var mc=0; mc < cols.length; mc++) {
-            if (ch === null || cols[mc].height() + (mc * 40) < ch) {
-              c = mc;
-              ch = cols[mc].height();
+      function loadResults() {
+        if (loading || end) return;
+        loading = true;
+        $.getJSON( "/api/post?page=" + (last_page + 1), function( data ) {
+          var cols = [$('#content-col-1'), $('#content-col-2'), $('#content-col-3')];
+          end = data.next === null;
+          data.results.map(function( item ) {
+            var c = 0;
+            var ch = null;
+            for (var mc=0; mc < cols.length; mc++) {
+              if (ch === null || cols[mc].height() + (mc * 40) < ch) {
+                c = mc;
+                ch = cols[mc].height();
+              }
             }
-          }
-          console.log(item.creation_date);
-          item.creation_date = Date.parse(item.creation_date.split("T")[0]).toString('d MMM yyyy');
-          console.log(item.creation_date);
-          var post = $(template(item));
-          post.click(function() {
-            window.location = "/post/" + item.id;
+            console.log(item.creation_date);
+            item.creation_date = Date.parse(item.creation_date.split("T")[0]).toString('d MMM yyyy');
+            console.log(item.creation_date);
+            var post = $(template(item));
+            post.click(function() {
+              window.location = "/post/" + item.id;
+            });
+            cols[c].append(post);
           });
-          cols[c].append(post);
+          loading = false;
+          last_page += 1;
         });
-        loading = false;
-        last_page += 1;
-      });
-    }
-    loadResults();
-
-    $(window).scroll(function() {
-      if($(window).scrollTop() + $(window).height() == $(document).height()) {
-        loadResults();
       }
+      loadResults();
+
+      $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+          loadResults();
+        }
+      });
+
+      $(".logo").click(function() {
+        window.location = "/"
+      })
+
     });
-
-    $(".logo").click(function() {
-      window.location = "/"
-    })
-
-  });
-</script>
-</body>
-</html>
+  </script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <p>
+    This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc/2.5/">Creative
+    Commons Attribution-NonCommercial 2.5</a> License.
+  </p>
+
+  <p>
+    This means that you are free to copy and reuse any of my drawings (non-commercially)
+    as long as you tell people where they're from.
+  </p>
+
+  <p>
+    That is, you don't need my permission to post these pictures on your website (and
+    hot-linking with  is fine); just include a link back to this page. You can use them
+    freely (with some kind of link) in not-for-profit publications, and I'm also okay with
+    people reprinting occasional comics (with clear attribution) in publications like books,
+    blogs, newsletters, and presentations. If you're not sure, just
+    <a href="mailto:comics@sebastianphelps.com">email me</a> and ask.
+  </p>
+{% endblock %}
+
+{% block jquery %}
+  <script>
+    $(function() {
+      $(".logo").click(function() {
+        window.location = "/"
+      });
+    });
+  </script>
+{% endblock %}

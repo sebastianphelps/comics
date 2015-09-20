@@ -3,6 +3,10 @@ from django.views.generic import TemplateView
 from models import Post, PostStyle
 
 
+class LicenseView(TemplateView):
+    template_name = "license.html"
+
+
 class IndexView(TemplateView):
     template_name = "index.html"
 
