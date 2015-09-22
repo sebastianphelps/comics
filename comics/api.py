@@ -6,7 +6,7 @@ from rest_framework.decorators import detail_route
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.filters import BaseFilterBackend
+from rest_framework.filters import BaseFilterBackend, OrderingFilter
 
 from ipware.ip import get_ip, get_real_ip
 
@@ -54,10 +54,11 @@ class TagFilter(BaseFilterBackend):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all().order_by("-creation_date")
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
     pagination_class = Pagination
-    filter_backends = (TagFilter, )
+    filter_backends = (TagFilter, OrderingFilter)
+    ordering_fields = ('creation_date', 'num_likes')
 
     @detail_route(methods=['get'], permission_classes=[AllowAny])
     def like(self, request, pk=None):

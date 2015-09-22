@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="media-choice text-center clearfix">
-    <button class="btn btn-default active">All</button>
-    <button class="btn btn-default">Comics</button>
-    <button class="btn btn-default">Thoughts</button>
+    <button class="btn btn-default active order-toggle" data-order="-creation_date">Newest</button>
+    <button class="btn btn-default order-toggle" data-order="-num_likes">Most liked</button>
+    <button class="btn btn-default order-toggle" data-order="creation_date">Oldest</button>
   </div>
   <div class="content">
     <div class="col-sm-4" id="content-col-1"></div>
@@ -24,7 +24,13 @@
       var cols = [$('#content-col-1'), $('#content-col-2'), $('#content-col-3')];
       var searchTimeout;
 
+      function activeOrdering() {
+        return $(".order-toggle.active");
+      }
+
       function clearResults() {
+        last_page = 0;
+        end = false;
         for (var mc=0; mc < cols.length; mc++) {
           cols[mc].empty();
         }
@@ -33,7 +39,7 @@
       function loadResults() {
         if (loading || end) return;
         loading = true;
-        var url = "/api/post?page=" + (last_page + 1);
+        var url = "/api/post?page=" + (last_page + 1) + "&ordering="+activeOrdering().data("order");
         var search = searchInput.val();
         if (search) url += "&search=" + encodeURI(search);
         $.getJSON( url , function( data ) {
@@ -80,12 +86,18 @@
       }
       loadResults();
 
+      $(".order-toggle").click(function() {
+        if (activeOrdering() === $(this)) return;
+        activeOrdering().removeClass("active");
+        $(this).addClass("active");
+        clearResults();
+        loadResults();
+      });
+
       searchInput.keyup(function() {
         if (searchTimeout) clearTimeout(searchTimeout);
         searchTimeout = setTimeout(function () {
           clearResults();
-          last_page = 0;
-          end = false;
           loadResults();
         }, 700);
       });
