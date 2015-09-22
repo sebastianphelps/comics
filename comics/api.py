@@ -7,7 +7,7 @@ from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
-from ipware.ip import get_ip
+from ipware.ip import get_ip, get_real_ip
 
 from .models import Post, PostStyle, PostLikes
 
@@ -44,7 +44,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['get'], permission_classes=[AllowAny])
     def like(self, request, pk=None):
-        ip_address = get_ip(request)
+        #ip_address = get_ip(request)
+        ip_address = get_real_ip(request)
         log.debug(ip_address)
         if ip_address is None:
             log.debug("No IP address found")
