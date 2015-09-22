@@ -4,8 +4,9 @@ from rest_framework import serializers, viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import detail_route
 from rest_framework.exceptions import ValidationError, PermissionDenied
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.filters import BaseFilterBackend
 
 from ipware.ip import get_ip, get_real_ip
 
@@ -37,10 +38,26 @@ class PostSerializer(serializers.ModelSerializer):
                   'style')
 
 
+class TagFilter(BaseFilterBackend):
+    # The URL query parameter used for the search.
+    search_param = "search"
+
+    def get_search_terms(self, request):
+        params = request.query_params.get(self.search_param, '')
+        return params.replace(',', ' ').split()
+
+    def filter_queryset(self, request, queryset, view):
+        search_terms = self.get_search_terms(request)
+        if len(search_terms) == 0:
+            return queryset
+        return queryset.filter(tags__name__in=search_terms).distinct()
+
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by("-creation_date")
     serializer_class = PostSerializer
     pagination_class = Pagination
+    filter_backends = (TagFilter, )
 
     @detail_route(methods=['get'], permission_classes=[AllowAny])
     def like(self, request, pk=None):

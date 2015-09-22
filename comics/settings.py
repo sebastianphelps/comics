@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'comics',
     'rest_framework',
     'colorfield',
+    'taggit',
     'django_cleanup'
 )
 
@@ -55,7 +56,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-
+TAGGIT_CASE_INSENSITIVE = True
 
 
 REST_FRAMEWORK = {

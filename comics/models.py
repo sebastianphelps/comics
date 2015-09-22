@@ -4,6 +4,7 @@ import uuid
 from django.db import models
 from django.utils.timezone import now
 from colorfield.fields import ColorField
+from taggit.managers import TaggableManager
 
 
 def upload_path_and_rename(instance, filename):
@@ -37,6 +38,7 @@ class Post(models.Model):
     post_type = models.CharField(max_length=32, choices=POST_TYPES)
     num_likes = models.IntegerField(default=0, null=False, blank=False)
     style = models.ForeignKey(PostStyle, null=True, blank=True)
+    tags = TaggableManager()
 
     @property
     def next(self):
